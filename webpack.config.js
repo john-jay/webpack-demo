@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -24,7 +25,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextWebpackPlugin('styles.css')
+    new ExtractTextWebpackPlugin('styles.css'),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
