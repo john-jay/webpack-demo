@@ -1,4 +1,4 @@
-
+require('./styles.scss');
 
 class Car {
     manufacturer(car) {
