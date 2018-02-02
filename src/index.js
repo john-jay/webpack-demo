@@ -8,4 +8,4 @@ class Car {
 
 const car = new Car;
 
-car.manufacturer('Tesla');
+car.manufacturer('Chrysler');

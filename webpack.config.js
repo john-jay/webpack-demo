@@ -25,8 +25,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextWebpackPlugin('styles.css'),
-    new webpack.optimize.UglifyJsPlugin()
+    new ExtractTextWebpackPlugin('styles.css')
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
@@ -36,3 +35,9 @@ module.exports = {
   },
   devtool: 'eval-source-map'
 };
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin()
+  )
+}
