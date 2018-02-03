@@ -1,11 +1,11 @@
-require('./styles.scss');
+require('./assets/stylesheets/styles.scss');
 
 class Car {
     manufacturer(car) {
-        document.write(`I have a ${car}.`);    
+        document.write(`I have a ${car}!`);    
     }
 }
 
 const car = new Car;
 
-car.manufacturer('Chrysler');
+car.manufacturer('Woop woop');
