@@ -18,21 +18,18 @@ module.exports = {
   },
   module: {
     rules: [{ // loader rules
-        test: /\.js$/, // files ending with .js
-        exclude: /node_modules/, // exclude the node_modules directory
-        loader: "babel-loader" // use this (babel-core) loader
-      },
-      {
-        test: /\.scss$/, // files ending in .scss
-        use: ExtractTextWebpackPlugin.extract({
-          use: ['css-loader', 'sass-loader'],
-          fallback: 'style-loader'
-        })
-      },
-      {
-        test: /\.jsx$/,
+        test: /\.jsx?$/, // files ending with .js or .jsx
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/, // files ending with .scss
+        use: ['css-hot-loader'].concat(ExtractTextWebpackPlugin.extract({
+        
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader'],
+              
+        })),
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i, // Image Loader
@@ -56,7 +53,7 @@ module.exports = {
         }],
         exclude: /node_modules/,
         include: __dirname,
-      }
+      },
     ]
   },
   plugins: [
