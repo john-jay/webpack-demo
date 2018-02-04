@@ -11,7 +11,7 @@ module.exports = {
     filename: 'output.js'
   },
   module: {
-    rules: [{
+    rules: [{ // loader rules
         test: /\.js$/, // files ending with .js
         exclude: /node_modules/, // exclude the node_modules directory
         loader: "babel-loader" // use this (babel-core) loader
@@ -22,6 +22,34 @@ module.exports = {
           use: ['css-loader', 'sass-loader'],
           fallback: 'style-loader'
         })
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i, // Image Loader
+        loaders: ['file-loader?context=src/assets/images/&name=images/[path][name].[ext]', {
+          loader: 'image-webpack-loader',
+          query: {
+            mozjpeg: {
+              progressive: true,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            optipng: {
+              optimizationLevel: 4,
+            },
+            pngquant: {
+              quality: '75-90',
+              speed: 3,
+            },
+          },
+        }],
+        exclude: /node_modules/,
+        include: __dirname,
       }
     ]
   },
