@@ -25,10 +25,8 @@ module.exports = {
       {
         test: /\.scss$/, // files ending with .scss
         use: ['css-hot-loader'].concat(ExtractTextWebpackPlugin.extract({
-        
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
-              
+          use: ['css-loader', 'sass-loader', 'postcss-loader'],
         })),
       },
       {
