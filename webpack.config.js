@@ -10,6 +10,12 @@ module.exports = {
     path: path.resolve(__dirname, './public'),
     filename: 'output.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.scss', '.css', '.jpeg', '.jpg', '.gif',  '.png'],
+    alias: {
+      images: path.resolve(__dirname, 'src/assets/images')
+    }
+  },
   module: {
     rules: [{ // loader rules
         test: /\.js$/, // files ending with .js
