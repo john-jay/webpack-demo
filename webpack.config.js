@@ -1,17 +1,25 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].css",
+  disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    output: './src/index.js',
+    jOutput: './src/jIndex.js'
+  },
   output: {
     path: path.resolve(__dirname, './public'),
-    filename: 'output.js'
+    filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.scss', '.css', '.jpeg', '.jpg', '.gif',  '.png'],
+    extensions: ['.js', '.jsx', '.json', '.scss', '.css', '.jpeg', '.jpg', '.gif', '.png'],
     alias: {
       images: path.resolve(__dirname, 'src/assets/images')
     }
@@ -24,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.scss$/, // files ending with .scss
-        use: ['css-hot-loader'].concat(ExtractTextWebpackPlugin.extract({
+        use: ['css-hot-loader'].concat(extractSass.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader', 'postcss-loader'],
         })),
@@ -55,7 +63,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextWebpackPlugin('styles.css')
+    extractSass,
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
